@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DFSAdjacencyMatrix",
+            "request": "launch",
+            "mainClass": "DFSAdjacencyMatrix"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Hello",
+            "request": "launch",
+            "mainClass": "Hello"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DFS",
+            "request": "launch",
+            "mainClass": "DFS"
+        }
+    ]
+}
