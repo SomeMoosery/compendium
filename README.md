@@ -1,4 +1,5 @@
 # I'll sleep when I'm rich
+Decided to compile all the resources I've used intermittently for Leetcode prep over the years into one place so this time I can go in and absolutely dominiate this part of the interview, which is usually my weakest point.
 
 ## Definitions:
 * **Pass by reference**: you pass the actual memory reference of the object into the following function. Whatever you change in that function changes the actual value of the object. If you pass a CoffeeCup object into a fill(CoffeeCup) method from main(), the CoffeeCup object in main will be filled up
