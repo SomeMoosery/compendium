@@ -1,4 +1,4 @@
-# General Tips, Tricks, Definitions:
+# I'll sleep when I'm rich
 
 ## Definitions:
 * **Pass by reference**: you pass the actual memory reference of the object into the following function. Whatever you change in that function changes the actual value of the object. If you pass a CoffeeCup object into a fill(CoffeeCup) method from main(), the CoffeeCup object in main will be filled up
