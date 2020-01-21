@@ -36,6 +36,12 @@ for(int i = 0; i < s.length(); i++) {
 }
 ```
 
+### Pre-Interview Musts:
+1. Reverse a Linked List
+2. Longest palindrome in a string
+3. DFS and BFS graph and tree 
+4. Preorder, Inorder traversals of a tree 
+
 ## Links/Resourecs:
 * [Hacking the Coding Interview](https://www.educative.io/courses/coderust-hacking-the-coding-interview/jv314)
 * [Backtracking (Subsets, Permutations, Combination Sum, Palindrome Partioning)](https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning))
