@@ -21,6 +21,9 @@ private void tick(int[] count) {
 }
 ```
 
+* BFS will always give the shortest path from A to B on a graph. It goes outwards layer by layer, so when it hits point B, we're at the "nearest" layer 
+* DFS will give us, maybe, the fastest path
+
 ## General Strategies:
 
 ### Palindromes:
@@ -41,6 +44,7 @@ for(int i = 0; i < s.length(); i++) {
 2. [Longest palindrome in a string](https://leetcode.com/problems/longest-palindromic-substring/)
 3. DFS and BFS graph and tree 
     - See this repo for basic implementations
+    - [DFS Implementation: Search a Maze](https://leetcode.com/problems/unique-paths/) (NOTE: A* works here too!)
 4. Preorder, Inorder traversals of a tree 
     - [Preorder](https://leetcode.com/problems/binary-tree-preorder-traversal/)
     - [Inorder](https://leetcode.com/problems/binary-tree-inorder-traversal/)
