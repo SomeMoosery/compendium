@@ -52,6 +52,8 @@ for(int i = 0; i < s.length(); i++) {
 6. [Buy/Sell Stock with K Transactions to Maximize Profit](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/submissions/)
 7. [Number of Coins to Make Amount (Knapsack)](https://leetcode.com/problems/coin-change-2/discuss/99212/Knapsack-problem-Java-solution-with-thinking-process-O(nm)-Time-and-O(m)-Space)
 8. [Clone Graph (with random pointer)](https://leetcode.com/problems/copy-list-with-random-pointer/)
+9. [Unique Paths](https://leetcode.com/problems/unique-paths/)
+10. [Search a Maze for Any Path](https://www.youtube.com/watch?v=W9F8fDQj7Ok&t=193s)
 
 ## Links/Resourecs:
 * [Hacking the Coding Interview](https://www.educative.io/courses/coderust-hacking-the-coding-interview/jv314)
