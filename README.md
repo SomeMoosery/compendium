@@ -37,10 +37,17 @@ for(int i = 0; i < s.length(); i++) {
 ```
 
 ### Pre-Interview Musts:
-1. Reverse a Linked List
-2. Longest palindrome in a string
+1. [Reverse a Linked List](https://leetcode.com/problems/reverse-linked-list/)
+2. [Longest palindrome in a string](https://leetcode.com/problems/longest-palindromic-substring/)
 3. DFS and BFS graph and tree 
+    - See this repo for basic implementations
 4. Preorder, Inorder traversals of a tree 
+    - [Preorder](https://leetcode.com/problems/binary-tree-preorder-traversal/)
+    - [Inorder](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+5. [Max Continguous Subarray Sum](https://leetcode.com/problems/maximum-subarray/)
+6. [Buy/Sell Stock with K Transactions to Maximize Profit](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/submissions/)
+7. [Number of Coins to Make Amount (Knapsack)](https://leetcode.com/problems/coin-change-2/discuss/99212/Knapsack-problem-Java-solution-with-thinking-process-O(nm)-Time-and-O(m)-Space)
+8. [Clone Graph (with random pointer)](https://leetcode.com/problems/copy-list-with-random-pointer/)
 
 ## Links/Resourecs:
 * [Hacking the Coding Interview](https://www.educative.io/courses/coderust-hacking-the-coding-interview/jv314)
