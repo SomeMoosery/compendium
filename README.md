@@ -4,9 +4,13 @@ Decided to compile all the resources I've used intermittently for Leetcode prep 
 ## Definitions:
 * **Pass by reference**: you pass the actual memory reference of the object into the following function. Whatever you change in that function changes the actual value of the object. If you pass a CoffeeCup object into a fill(CoffeeCup) method from main(), the CoffeeCup object in main will be filled up
 * **Pass by value**: you pass in a copy of the object into the following function. If you pass a CoffeeCup object into a fill(CoffeeCup) method from main(), the CoffeeCup object in main is not filled up.
+* **Postorder Traversal:** left, right, root
+* **Inorder Traversal:** left, root, right
+* **Preorder Traversal:** root, left, right
 
 ## General Tips & Tricks:
 * If you want to pass an int (**or any primitive type**) by reference in Java, you inherently cannot. What you *can* do, however, is create a 1-element array to hold the value of that primitive, and pass that by reference
+    * [Example Here](https://leetcode.com/problems/max-area-of-island/) - **another technique given as well**
 
 ```java
 public static void main(String[] args) {
@@ -23,6 +27,10 @@ private void tick(int[] count) {
 
 * BFS will always give the shortest path from A to B on a graph. It goes outwards layer by layer, so when it hits point B, we're at the "nearest" layer 
 * DFS will give us, maybe, the fastest path
+
+* You can validate a BST by just checking if the inorder traversal of that tree is sorted! 
+    * Think: in a valid BST, you're always able to go from a "left" node, to its root, to the right of the root in increasing order!
+    * Corollary: An inorder traversal is how you sort a BST! 
 
 ## General Strategies:
 
@@ -54,6 +62,8 @@ for(int i = 0; i < s.length(); i++) {
 8. [Clone Graph (with random pointer)](https://leetcode.com/problems/copy-list-with-random-pointer/)
 9. [Unique Paths](https://leetcode.com/problems/unique-paths/)
 10. [Search a Maze for Any Path](https://www.youtube.com/watch?v=W9F8fDQj7Ok&t=193s)
+11. [Validate BST](https://leetcode.com/problems/validate-binary-search-tree/)
+12. [Construct Binary Tree from Preorder, Inorder](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
 ## Links/Resourecs:
 * [Hacking the Coding Interview](https://www.educative.io/courses/coderust-hacking-the-coding-interview/jv314)
