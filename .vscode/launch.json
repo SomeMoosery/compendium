@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ReorderList",
+            "request": "launch",
+            "mainClass": "ReorderList",
+            "projectName": "leetcode_problems_2981f09b"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - UniquePaths",
             "request": "launch",
             "mainClass": "UniquePaths",

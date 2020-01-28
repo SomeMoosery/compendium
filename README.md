@@ -32,7 +32,8 @@ private void tick(int[] count) {
     * Think: in a valid BST, you're always able to go from a "left" node, to its root, to the right of the root in increasing order!
     * Corollary: An inorder traversal is how you sort a BST! 
 
-## General Strategies:
+## General Strategies/Formulas:
+Why bother deriving everything when you can just memorize a small, useful toolset?
 
 ### Palindromes:
 - Look to go through each element and expand outwards from each element
@@ -47,8 +48,42 @@ for(int i = 0; i < s.length(); i++) {
 }
 ```
 
+### Reversing a Linked List:
+```java
+private ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        
+        while(curr != null) {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        
+        return prev;
+    }
+```
+
+### Merging two Linked Lists:
+```java
+private void merge(ListNode l1, ListNode l2) {
+    while (l1 != null) {
+        ListNode l1Next = l1.next;
+        ListNode l2Next = l2.next;
+        
+        l1.next = l2;
+        
+        if (l1Next == null) break;
+        l2.next = l1Next;
+        l1 = l1Next;
+        l2 = l2Next;
+    }
+}
+```
+
 ### Pre-Interview Musts:
-1. [Reverse a Linked List](https://leetcode.com/problems/reverse-linked-list/)
+1. [Reorder List](https://leetcode.com/problems/reorder-list/) - implements splitting and reversing lists
 2. [Longest palindrome in a string](https://leetcode.com/problems/longest-palindromic-substring/)
 3. DFS and BFS graph and tree 
     - See this repo for basic implementations
@@ -65,6 +100,7 @@ for(int i = 0; i < s.length(); i++) {
 11. [Validate BST](https://leetcode.com/problems/validate-binary-search-tree/)
 12. [Construct Binary Tree from Preorder, Inorder](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 13. [Game of Life](https://leetcode.com/problems/game-of-life/)
+14. [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
 
 ## Links/Resourecs:
 * [Hacking the Coding Interview](https://www.educative.io/courses/coderust-hacking-the-coding-interview/jv314)
