@@ -32,8 +32,23 @@ private void tick(int[] count) {
     * Think: in a valid BST, you're always able to go from a "left" node, to its root, to the right of the root in increasing order!
     * Corollary: An inorder traversal is how you sort a BST! 
 
+* Always think about lookup tables in bit manipulation problems, as they're often the key to many of these! 
+* Java has no unsigned integeters
+* All bitwise operations are O(1)
+
+* The least significant digit of any number x is x % 10
+* The number of digits in an input x is the log (base 10) of x
+* The most significant digit of any number x is x / 10^(n-1) where n is the number of digits in x
+    * These can be used for masking the most and least significant digits to, say, check if an int is a palindrome
+
 ## General Strategies/Formulas:
 Why bother deriving everything when you can just memorize a small, useful toolset?
+
+### Bit Manipulation:
+- y = x & ~(x-1) yields a y such that there is only a set bit at the lowest bit of x that is 1 -> it's ISOLATED 
+- y = x & (x-1) yields a y that replaces the lowest set bit of x with 0
+    - This replaces the need to search through each bit, going from O(n) to O(k) for many problems since you only hit set bits
+- y = x | (x-1) right-propagates the rightmost set bit of x
 
 ### Palindromes:
 - Look to go through each element and expand outwards from each element
