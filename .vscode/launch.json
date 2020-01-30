@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Quicksort",
+            "request": "launch",
+            "mainClass": "SortingAlgorithms.Quicksort",
+            "projectName": "leetcode_problems_2981f09b"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Quicksort",
+            "request": "launch",
+            "mainClass": "Quicksort",
+            "projectName": "leetcode_problems_2981f09b"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - ReorderList",
             "request": "launch",
             "mainClass": "ReorderList",
