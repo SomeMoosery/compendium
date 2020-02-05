@@ -97,6 +97,37 @@ private void merge(ListNode l1, ListNode l2) {
 }
 ```
 
+### Dealing with Tree Path/Traversal:
+Can be broken down into some basic general steps
+
+1. You have your root, pass it into a helper function and start using recursion
+2. If the current node is null, return null/zero/etc...
+3. Do some comparison (like Math.max() of the left and right subtrees) recursively
+4. Return one final comparison of the two complete subtrees
+
+Good reference on a hard problem [here](https://youtu.be/mOdetMWwtoI?t=700)
+
+**Example:**
+```java
+int maxPath;
+public int maxPath(TreeNode root) {
+    maxPath = Integer.MIN_VALUE;
+    pathSum(root);
+    return maxPath;
+}
+
+private int pathSum(TreeNode node) {
+    if (node == null) return 0;
+
+    int left = pathSum(node.left);
+    int right = pathSum(node.right);
+
+    ...
+
+    return Math.max(left, right) + node.val
+}
+```
+
 ### Pre-Interview Musts:
 1. [Reorder List](https://leetcode.com/problems/reorder-list/) - implements splitting and reversing lists
 2. [Longest palindrome in a string](https://leetcode.com/problems/longest-palindromic-substring/)
@@ -116,6 +147,7 @@ private void merge(ListNode l1, ListNode l2) {
 12. [Construct Binary Tree from Preorder, Inorder](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 13. [Game of Life](https://leetcode.com/problems/game-of-life/)
 14. [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
+15. [Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
 
 ## Links/Resourecs:
 * [Hacking the Coding Interview](https://www.educative.io/courses/coderust-hacking-the-coding-interview/jv314)
