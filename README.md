@@ -26,20 +26,24 @@ private void tick(int[] count) {
 ```
 
 * BFS will always give the shortest path from A to B on a graph. It goes outwards layer by layer, so when it hits point B, we're at the "nearest" layer 
-* DFS will give us, maybe, the fastest path
+* DFS will give us, maybe, the fastest path<br/><br/>
 
 * You can validate a BST by just checking if the inorder traversal of that tree is sorted! 
     * Think: in a valid BST, you're always able to go from a "left" node, to its root, to the right of the root in increasing order!
-    * Corollary: An inorder traversal is how you sort a BST! 
+    * Corollary: An inorder traversal is how you sort a BST!<br/><br/>
 
 * Always think about lookup tables in bit manipulation problems, as they're often the key to many of these! 
 * Java has no unsigned integeters
-* All bitwise operations are O(1)
+* All bitwise operations are O(1)<br/><br/>
 
 * The least significant digit of any number x is x % 10
 * The number of digits in an input x is the log (base 10) of x
 * The most significant digit of any number x is x / 10^(n-1) where n is the number of digits in x
-    * These can be used for masking the most and least significant digits to, say, check if an int is a palindrome
+    * These can be used for masking the most and least significant digits to, say, check if an int is a palindrome<br/><br/>
+
+* **MYTH**: Objects are passed by reference, primitives are passed value
+    * **FACT**: Everything in Java is passed by value. Objects, however, are never passed at all, **just references to objects**
+    * **FACT**: The values of variables are always primitives or references, never objects<br/><br/>
 
 ## General Strategies/Formulas:
 Why bother deriving everything when you can just memorize a small, useful toolset?
@@ -128,6 +132,18 @@ private int pathSum(TreeNode node) {
 }
 ```
 
+Alternatively, we can do a calculation at the root before bubbling back up. After the two recursive calls: 
+```java
+...
+// This does a calculation at the leaf node
+if (node.left == null && node.right == null && <CALCULATION>) {
+    return x;
+}
+
+// Now we bubble back up using that newly-calculated value
+return y;
+```
+
 ### Pre-Interview Musts:
 1. [Reorder List](https://leetcode.com/problems/reorder-list/) - implements splitting and reversing lists
 2. [Longest palindrome in a string](https://leetcode.com/problems/longest-palindromic-substring/)
@@ -154,3 +170,4 @@ private int pathSum(TreeNode node) {
 * [Backtracking (Subsets, Permutations, Combination Sum, Palindrome Partioning)](https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning))
 * [Substring problems guide](https://leetcode.com/problems/minimum-window-substring/discuss/26808/here-is-a-10-line-template-that-can-solve-most-substring-problems)
 * [General Patterns](https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed)
+* [Nuances to Pass by Reference/Value in Java](https://jonskeet.uk/java/passing.html)
