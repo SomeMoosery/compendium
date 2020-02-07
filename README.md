@@ -164,6 +164,7 @@ return y;
 13. [Game of Life](https://leetcode.com/problems/game-of-life/)
 14. [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
 15. [Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
+16. [BST Iterator](https://leetcode.com/problems/binary-search-tree-iterator/solution/)
 
 ## Links/Resourecs:
 * [Hacking the Coding Interview](https://www.educative.io/courses/coderust-hacking-the-coding-interview/jv314)
