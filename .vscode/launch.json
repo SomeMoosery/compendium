@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - JumpGame",
+            "request": "launch",
+            "mainClass": "JumpGame",
+            "projectName": "leetcode_problems_2981f09b"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MaximumSubarray",
+            "request": "launch",
+            "mainClass": "MaximumSubarray",
+            "projectName": "leetcode_problems_2981f09b"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - GroupAnagrams",
             "request": "launch",
             "mainClass": "GroupAnagrams",
