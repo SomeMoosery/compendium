@@ -1,3 +1,5 @@
+import Common.ListNode;
+
 public class ReorderList {
     public static void reorderList(ListNode head) {
         // Check for edge cases
