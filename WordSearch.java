@@ -1,49 +1,51 @@
-// TODO improve on this solution, it's very slow 
+// TODO improve on this solution, it's very slow
+// https://www.youtube.com/watch?v=vYYNp0Jrdv0&t=5s
 
 class WordSearch {
     public static boolean exist(char[][] board, String word) {
-        // Instantiate result variable         
-        boolean[] isSolvable = new boolean[]{false};
-        
         // Traverse board until first character is found (if at all)
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[0].length; col++) {
-                if (board[row][col] == word.charAt(0)) {
-                    // Expand outward from there in each direction recursively
-                    isSolvable(row, col, board , word, 0, isSolvable);
+                if ((board[row][col] == word.charAt(0)) && isSolvable(row, col, board, word, 0)) {
+                    return true;
                 }
             }
         }
         
-        // Return if it's solvable
-        return isSolvable[0];
+        return false;
     }
     
-    private static void isSolvable(int row, int col, char[][] board, String word, int currChar, boolean[] result) {
-        currChar += 1;
+    private static boolean isSolvable(int row, int col, char[][] board, String word, int currChar) {
+        if (currChar == word.length()) {
+            return true;
+        }
+
+        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length || board[row][col] != word.charAt(currChar)) {
+            return false;
+        }
+        
         char temp = board[row][col];
         board[row][col] = ' ';
         
-        // If we've reached the end of the word, we're done
-        if (currChar == word.length()) {
-            result[0] = true; 
-            return;
-        }
-        
         // Check if we have the next letter in any direction
-        if (row-1 >= 0 && board[row-1][col] == word.charAt(currChar)) {
-            isSolvable(row-1, col, board, word, currChar, result);
-        }
-        if (row+1 < board.length && board[row+1][col] == word.charAt(currChar)) {
-            isSolvable(row+1, col, board, word, currChar, result);
-        }
-        if (col-1 >= 0 && board[row][col-1] == word.charAt(currChar)) {
-            isSolvable(row, col-1, board, word, currChar, result);
-        }
-        if (col+1 < board[0].length && board[row][col+1] == word.charAt(currChar)) {
-            isSolvable(row, col+1, board, word, currChar, result);
-        }
+        boolean found = isSolvable(row-1, col, board, word, currChar+1)
+            || isSolvable(row+1, col, board, word, currChar+1)
+            || isSolvable(row, col-1, board, word, currChar+1)
+            || isSolvable(row, col+1, board, word, currChar+1);
         
         board[row][col] = temp;
+        return found;
+    }
+
+    public static void main(String[] args) {
+        char[][] board = new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}};
+        String test1 = "ABCCED";
+        String test2 = "SEE";
+        String test3 = "ABCB";
+
+        System.out.println(test1 + " " + exist(board, test1));
+        System.out.println(test2 + " " + exist(board, test2));
+        System.out.println(test3 + " " +exist(board, test3));
+
     }
 }

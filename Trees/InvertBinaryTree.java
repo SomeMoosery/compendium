@@ -1,3 +1,5 @@
+package Trees;
+
 import Common.TreeNode;
 
 class InvertBinaryTree {
