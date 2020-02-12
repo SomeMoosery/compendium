@@ -84,6 +84,19 @@ private ListNode reverse(ListNode head) {
     }
 ```
 
+### Getting to the Middle of a Linked List:
+```java
+public ListNode middleNode(ListNode head) {
+    ListNode slow = head, fast = head;
+    while (fast != null && fast.next != null) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    
+    return slow; // slow is at the middle of the list!
+}
+```
+
 ### Merging two Linked Lists:
 ```java
 private void merge(ListNode l1, ListNode l2) {
