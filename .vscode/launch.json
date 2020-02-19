@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - SortColors",
+            "request": "launch",
+            "mainClass": "SortColors",
+            "projectName": "leetcode_problems_2981f09b"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - AddTwoNumbers",
             "request": "launch",
             "mainClass": "AddTwoNumbers",
