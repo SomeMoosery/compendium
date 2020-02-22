@@ -28,6 +28,17 @@ private void tick(int[] count) {
 * BFS will always give the shortest path from A to B on a graph. It goes outwards layer by layer, so when it hits point B, we're at the "nearest" layer 
 * DFS will give us, maybe, the fastest path<br/><br/>
 
+* When doing a BFS problem on a matrix similar to number of islands, but you just want want to check if something is adjacent to your current spot in the matrix (like [word search](https://leetcode.com/problems/word-search/)), you can frontload the conditionals instead of having each one in the if statement looking for that something:
+
+```java
+public static boolean bfs(int[][] grid, int row, int col) {
+    ...
+    if (row < 0 || row >= grid.length || col < 0 || col >= board[0].length || board[row][col] != <WHATEVER>) return false;
+
+    // ...continue with your dfs...
+}
+```
+
 * You can validate a BST by just checking if the inorder traversal of that tree is sorted! 
     * Think: in a valid BST, you're always able to go from a "left" node, to its root, to the right of the root in increasing order!
     * Corollary: An inorder traversal is how you sort a BST!<br/><br/>
