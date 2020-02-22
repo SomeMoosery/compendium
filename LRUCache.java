@@ -104,9 +104,7 @@ class LRUCache {
             /*
              * Re-wire the node after the head. Our node is still sitting
              * "in the middle of nowhere". We got the new node pointing to the right things,
-             * but we need to fix up the original head & head's next. head <-> head.next <->
-             * head.next.next <-> head.next.next.next <-> ... ^ ^ |- new node -| That's
-             * where we are before these next 2 lines.
+             * but we need to fix up the original head & head's next.
              */
             head.next.prev = node;
             head.next = node;
