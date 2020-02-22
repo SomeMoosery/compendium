@@ -47,6 +47,8 @@ public static boolean bfs(int[][] grid, int row, int col) {
 * Java has no unsigned integeters
 * All bitwise operations are O(1)<br/><br/>
 
+* Hash tables are good for fast lookups on a special-property data structure (so if you have BST, for example, instead of having O(h) time to search the tree and lookup a value, you can back it up with a hash table which has O(1) lookup)1<br/><br/>
+
 * The least significant digit of any number x is x % 10
 * The number of digits in an input x is the log (base 10) of x
 * The most significant digit of any number x is x / 10^(n-1) where n is the number of digits in x
