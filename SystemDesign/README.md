@@ -32,15 +32,15 @@ You can only ever 2 of the 3 following features in a distributed system:
 * AP is a good choice if your system allows for eventual consistency, or when the system needs to keep working despite external errors
 
 ## Solid Principles
-1. **_S_****ingle Responsibility Principle:** a class should have one and only one reason to change, meaning that a class should only have one job  
+1. **Single Responsibility Principle:** a class should have one and only one reason to change, meaning that a class should only have one job  
 - You should have separate `Circle.java` and `Square.java` classes
-2. **_O_****pen-closed Principle:** objects or entities should be open for extension, but closed for modification
+2. **Open-closed Principle:** objects or entities should be open for extension, but closed for modification
 - Assume you want to add a way to calculate shapes' areas. Instead of having an `AreaCalculator.java` class that requires multiple `if/else` statements to calculate the areas of different shapes, meaning you'd be constantly modifying the `AreaCalculator.java` class. Instead, add an `area()` method to both `Circle.java` and `Square.java`, thus extending two classes.
 - Or, you could still have an `AreaCalculator.java` class, but instead of implement a long `if/else`-heavy area method, you just call `shape.area()` from within the class.
 - You'd want to create a `Shape.java` interface in this case to ensure that all shapes you implement have this `area()` function now
-3. **_L_****iskov Substitution Principle:** Let q(x) be a property provable about objects of x of type T. Then q(y) should be provable for objects y of type S where S is a subtype of T. Every sublcass/derived class should be substitutable for their base/parent class
+3. **Liskov Substitution Principle:** Let q(x) be a property provable about objects of x of type T. Then q(y) should be provable for objects y of type S where S is a subtype of T. Every sublcass/derived class should be substitutable for their base/parent class
 - If you have a `VolumeCalculator extends AreaCalculator` class, you should be able to use the two interchangeably
-4. **_I_****nterface Segregation Principle:** A client should never be forced to implement an interface that it doesn't use or clients shouldn't be forced to depend on methods they do not use.
+4. **Interface Segregation Principle:** A client should never be forced to implement an interface that it doesn't use or clients shouldn't be forced to depend on methods they do not use.
 - You wouldn't want one `ShapeInterface.java` for both 2D and 3D shapes, because you'd never call `volume()` on a 2D shape. Instead, you'd want two separate interfaces `2DShapeInterface.java` and `3DShapeInterface.java` with maybe a "manager" `ManagerShapeInterface` to show they're related.
-5. **_D_****ependency Inversion Principle:** Entities must depend on abstractions not on concretions. It states that the high level module must not depend on the low level module, but they should depend on abstractions.
+5. **Dependency Inversion Principle:** Entities must depend on abstractions not on concretions. It states that the high level module must not depend on the low level module, but they should depend on abstractions.
 - If you have a class `Shape.java` that in its constructor requires a `MySQLConnection` class, this violates this principle. You're depending on MySQLConnection (the low level module) in order to instantiate the high level module. If you ever decide to switch to NoSQL, you'll have to modify `Shape.java` thus violating the Open-Close principle. Instead, create a `DBConnectionInterface.java` interface and have `MySQLConnection.java` extend it, so therefore in `Shape.java` you can have the `DBConnectionInterface.java`, which even if you switch to NoSQL you won't have to modify this. 
