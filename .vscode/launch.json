@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - TwoSum",
+            "request": "launch",
+            "mainClass": "TwoSum",
+            "projectName": "leetcode_problems_2981f09b"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - BuySellStockIII",
             "request": "launch",
             "mainClass": "BuySellStockIII",
