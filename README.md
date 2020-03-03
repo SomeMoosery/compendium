@@ -199,3 +199,10 @@ return y;
 * [Substring problems guide](https://leetcode.com/problems/minimum-window-substring/discuss/26808/here-is-a-10-line-template-that-can-solve-most-substring-problems)
 * [General Patterns](https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed)
 * [Nuances to Pass by Reference/Value in Java](https://jonskeet.uk/java/passing.html)
+
+## Continued Reading, Useful Blogs, etc...
+* [Martin Fowler's Blog](https://martinfowler.com/)
+    * [His deep dive into microservices](https://martinfowler.com/articles/microservices.html#EvolutionaryDesign)
+    * [His deep dive into serverless](https://martinfowler.com/articles/serverless.html)
+    * [His guide on testing microservices](https://martinfowler.com/articles/microservice-testing/)
+    
