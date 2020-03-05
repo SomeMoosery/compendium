@@ -30,7 +30,107 @@ Do not confuse **tiers** with **layers**. Pretty much any tier application will 
 
 ![Basic Web Architecture](images/basic-architecture.png?raw=true "Basic Web Architecture")
 
+### The Client
+
 **Client-Server Architecture:** This architecture works on the **request-response model**. A client (usually a tablet, desktop, mobile) sends a request for information to a server, and the server responds with that information.
+
+The **client** holds the user interface, written in HTML, JavaScript, CSS.
+- responsible for the look & feel of the application
+- the most common web-based technologies for writing web-based UIs are React, Angular, Vue, jQuery, etc...
+    - Android, Windows OS, iOS all have different technologies to write their UIs as well
+
+Types of Clients:
+1. **Thin Client:** a client which holds just the user interface of the application, no business logic of any sort (three-tiered applications)
+2. **Thick (Fat) Client:** a client which holds all or some part of the business logic (two-tiered applications)
+- Thicc client is good for if you want low bandwidth because there's fewer calls to the backend here
+
+![Basic Client](images/basic-client.png?raw=true "Basic Client")
+
+### The Server
+The primary purpose of a web server is to receive the requests from the client & provide the response after executing the business logic based on the request parameters received from the client
+
+**application server:** server running a web application
+
+Along with application servers, there are:
+- proxy servers
+- mail servers
+- file servers
+- virtual servers
+
+Every component of a web application needs a server to run (database, message queue, cache, UI)
+
+**server-side rendering:** rendering the UI on the backend and sending the rendered data to the client 
+
+### Communication Between Client & Server
+In a **request-response** model, the entire communication happens over the **HTTP protocol**. 
+
+**HTTP Protocol:** a request-response protocol for data exchange over the World Wide Web
+- It is stateless - every process over HTTP is executed independently and has no knowledge of previous processes
+
+The backend has a REST API which acts as an interface to the outside world of requests. Every request (whether it's from the client written by the business or a third-party developer consuming our data, has to hit REST-endpoints to fetch the data)
+
+### REST APIs
+**REST:** a software architectural style for implementing web services
+- web services implemented using the REST architectural style are known as the **RESTful Web services**
+- enables servers to cache the response that improves the performance of the application (usually, GET requests are cacheable by default)
+
+**REST API:** an API implementation that adheres to the REST architectural constraints, acting as an interface.
+
+Since communication is stateless, you need to send authentication information from client to server on each request.
+
+A **REST endpoint** is just the url of a service!
+- `https://myapp.com/getuserdetails/{username} is a REST endpoint for fetching the user details of a particular user from the application
+- this URL is exposed to all its clients 
+- this completely decouples the client and server. It doesn't matter what the client looks like or what it does, as long as it hits that endpoint, it's good to go
+
+**Back in the day, people would put business logic in JSP (`<% ...java code... %>`) tags, tightly coupling client and server - meaning you'd have to duplicate code when writing a web client, and a mobile client, etc...
+
+The REST API acts as a gateway which encapsulates the business logic. It handles all the client requests, taking care of the authorization, authentication, sanitizing the input data & other necessary tasks before providing access to the application resources
+
+![Basic REST API](images/basic-rest-api.png?raw=true "Basic REST API")
+
+![REST API Gateway](images/rest-api-detail.png?raw=true "REST API Gateway")
+
+HTTP requests consume bandwidth, which costs the business money each time
+
+Clients use **AJAX (Asynchronous JavaScript & XML)** or GET to send requests to the server in the HTTP Pull based mechanism
+
+AJAX enables us to fetch updated data from the server by automatically sending requests over and over at stipulated level, otherwise known as **polling**
+- upon receiving the updates, a particular section of the web page is updated dynamically by the callback method. 
+    - We see this behaviour all the time on news & sports websites, where the updated event information is dynamically displayed on the page without the need to reload it.
+- AJAX uses an XMLHttpRequest object for sending the requests to the server which is built-in the browser and uses JavaScript to update the HTML DOM
+- AJAX is commonly used with jQuery
+    - There's many different approaches to take with React
+
+![AJAX](images/basic-ajax.png?raw=true "REST API Gateway")
+
+If a client doesn't receive a response from the server within the TTL, the browser kills the connection and the client has to re-send the request
+
+If we're certain that the response may sometimes take more time than the TTL set by the browser, use **persistent connection**
+
+**persistent connection:** a network connection between the client & the server that remains open for further requests & the responses, as opposed to being closed after a single communication. This is an HTTP Push
+
+For HTTP Push, clients use:
+- Ajax Long polling
+    - the server holds the response until it finds an update to be sent to the client
+    - server never returns an empty response
+    - fewer requests from client to server than regular polling
+- Web Sockets
+    - preferred when we need a _persistent bi-directional low latency data_ flow from the client to server & back
+    - messaging, chat, real-time social streams 
+    - **DOESN'T RUN OVER HTTP, BUT TCP. YOU NEED TO UPGRADE FROM HTTP -> TCP, AND BOTH CLIENT AND SERVER MUST HAVE TCP ENABLED FOR THIS TO WORK**
+- HTML5 Event Source
+    - the server automatically pushes the data to the client whenever the updates are available (once the client has established initial connection)
+    - one-directional as compared to web sockets
+    - gets rid of a huge number of blank request-response cycles cutting down the bandwidth consumption
+- Streaming over HTTP
+    - ideal for cases where we need to stream large data over HTTP by breaking it into smaller chunks
+
+![HTTP Pull Versus HTTP Push](images/pull-vs-push.png?raw=true "HTTP Pull Versus HTTP Push")
+
+These persistent connections will use **heartbeat interceptors** to keep the browser from killing the connection
+
+These are very resource intensive!
 
 ## Definitions: 
 
@@ -40,6 +140,38 @@ Do not confuse **tiers** with **layers**. Pretty much any tier application will 
 3. Are tricky to version control
 4. Are tricky to treat as a first-class application
 
+**Business logic:** the part of a computer program that contains the information (in the form of business rules) that defines or constrains how a business operates.
+
 **API Gateway:** an HTTP server where routes/endpoints are defined in config, and each route is associated with a resource to handle that route (in Serverless, handlers are often FaaS functions) 
 
 **Monitoring-Driven Development:** Once code has passed basic unit-test validation, deploy to a small subset of traffic and see how it compares to the previous version. This is basically testing in production, you savage.
+
+**Thin Client:** a client which holds just the user interface of the application, no business logic of any sort (three-tiered applications)
+
+**Thick (Fat) Client:** a client which holds all or some part of the business logic (two-tiered applications)
+
+**application server:** server running a web application
+
+**HTTP Protocol:** the protocol for data exchange over the World Wide Web
+
+**server-side rendering:** rendering the UI on the backend and sending the rendered data to the client 
+
+**REST:** a software architectural style for implementing web services
+
+**REST API:** an API implementation that adheres to the REST architectural constraints, acting as an interface.
+
+**REST endpoint:** the url of a service
+
+**HTTP Pull:** when the client sends a request to a server, it's pullingdata
+
+**HTTP Push:** the client sends the request for particular information to the server, just for the first time, & after that the server keeps pushing the new updates to the client whenever they are available
+- **also known as a callback**
+
+ **Polling:** automatically sending requests over and over at stipulated level
+
+ **heartbeat interceptors:** blank request responses between the client and the server to prevent the browser from killing the connection
+
+ ## Resources:
+ [Introducing WebSockets](https://www.html5rocks.com/en/tutorials/websockets/basics/)
+ [Educatvie Course](https://www.educative.io/courses/web-application-software-architecture-101)
+ [Push vs Pull - Jeff Poole](https://medium.com/@_JeffPoole/thoughts-on-push-vs-pull-architectures-666f1eab20c2)
