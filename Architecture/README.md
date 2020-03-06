@@ -132,6 +132,79 @@ These persistent connections will use **heartbeat interceptors** to keep the bro
 
 These are very resource intensive!
 
+## Scalability
+
+**Scalability:** the ability of the application to handle and withstand increased workload without sacrificing latency
+- if you have one user, one hundred users, or one billion users, your app should take the same amount of time to response to each of the billion concurrent user requests
+
+**Latency:** the amount of time a system takes to respond to a user request
+- our goal if for minimal latency - scalability is really just creating minimum latency no matter how much traffic is load ona  system builds up
+- measured as the time difference between the action that the user takes on the website and the system response to that webiste 
+
+Two types of latency:
+1. **Network Latency:** the amount of time that the network takes for sending a data packet from point A to point B
+- the network should be efficient enough to handle the increased traffic load on the website
+- **_this is where CDNs are useful - they deploy code globally to be as physically close to the user as possible_**
+2. **Application Latency:** the amount of time the application takes to process a user request
+- continuously try stress/load tests in order to pinpoint bottlenecks to fix in order to minimize latency
+
+![Latency](images/latency.png?raw=true "Latency")
+
+### Types of Scalability
+1. **Vertical Scaling:** adding more power to your server
+- increasing RAM on your machine is vertical scaling
+- this is also called _"scaling up"_
+- simpler. Less administrative, monitoring, management efforts since there's no distributed configurations to do
+- low availability
+
+2. **Horizontal Scaling:** adding more hardware to the existing hardware resource pool
+- also called _"scaling out"_
+- allows ability to scale infinitely and in real-time
+- allows for high availability 
+- **needs to be stateless** - no static instances in classses. Static classes hold application data and if a particular server goes down, all the static data/state is lost
+    - use persistent memory like a key-value store to hold data
+
+### Typical Scalability Bottlenecks
+1. Database
+- if your database isn't scaled, you're going to hit bottlenecks even if your servers are scaled beautifully
+- you could be using the wrong type of database (more on this in the Databases section below)
+    - if you want transactions and strong consistency, use a relational database
+    - if you don't need consistency and would rather have horizontal scalability on the fly pick a NoSQL database
+
+    Solutions to scaling your database: 
+    1. Sharding
+
+2. Application architecture
+- a common architectural mistake is not using asynchronous processes & modules wherever required, and having all the processes scheduled sequentially
+    - for instance, if a user uploads a document, tasks such as sending a confirmation email to the user and sending a notification to subscribers/listeners on the upload event should be done asynchronously
+    - these types of tasks should be forwarded to a **messaging server** 
+
+3. Not using caching wisely (or not using it enough)
+4. Inefficient configuration and setup of load balancers (using too many or too few)
+5. Don't add business logic to the database (stored procedures)
+6. Bad code (nested loops, tightly-coupled code, really just not paying attention to Big-O)
+
+### Fine-Tuning Performance
+1. Profile everything in the code (application profiling, code profiling)
+- **profiling:** the dynamic analysis of our code, measuring the space and the time complexity of our code and displaying issues like concurrency errors, memory errors & robustness & safety of the program
+2. Cache everything, wherever you can
+3. Use a CDN
+4. Compress data - store data in a compressed form (lower latency, faster download speeds of data on the client)
+5. Avoid unnecessary client server requests, combine multiple requests into one if need be
+
+### Testing Scalability 
+
+During scalability testing, different system parameters are taken into account such as 
+- CPU usage
+- network bandwidth consumption
+- throughput
+- the number of requests processed within a stipulated time
+- latency
+- memory usage of the program
+- end-user experience when the system is under heavy load
+
+In this testing phase, simulated traffic is routed to the system, to study how the system behaves and how the application scales under the heavy load
+
 ## Definitions: 
 
 **Stored Procedures:** storing business logic code in a database. 
@@ -167,11 +240,24 @@ These are very resource intensive!
 **HTTP Push:** the client sends the request for particular information to the server, just for the first time, & after that the server keeps pushing the new updates to the client whenever they are available
 - **also known as a callback**
 
- **Polling:** automatically sending requests over and over at stipulated level
+**Polling:** automatically sending requests over and over at stipulated level
 
- **heartbeat interceptors:** blank request responses between the client and the server to prevent the browser from killing the connection
+**heartbeat interceptors:** blank request responses between the client and the server to prevent the browser from killing the connection
 
- ## Resources:
- [Introducing WebSockets](https://www.html5rocks.com/en/tutorials/websockets/basics/)
- [Educatvie Course](https://www.educative.io/courses/web-application-software-architecture-101)
- [Push vs Pull - Jeff Poole](https://medium.com/@_JeffPoole/thoughts-on-push-vs-pull-architectures-666f1eab20c2)
+**Scalability:** the ability of the application to handle and withstand increased workload without sacrificing latency
+
+**Latency:** the amount of time a system takes to respond to a user request
+
+**Vertical Scaling:** adding more power to your server
+
+**Horizontal Scaling:** adding more hardware to the existing hardware resource pool
+
+**Cloud Elasticity:** the ability for cloud services to be able to "stretch" up/down, out/in cheaply, with ease
+
+**Profiling:** the dynamic analysis of our code, measuring the space and the time complexity of our code and displaying issues like concurrency errors, memory errors & robustness & safety of the program
+
+## Resources:
+[Introducing WebSockets](https://www.html5rocks.com/en/tutorials/websockets/basics/)
+[Educatvie Course](https://www.educative.io/courses/web-application-software-architecture-101)
+[Push vs Pull - Jeff Poole](https://medium.com/@_JeffPoole/thoughts-on-push-vs-pull-architectures-666f1eab20c2)
+[How production engineers support global events on Facebook](https://engineering.fb.com/production-engineering/how-production-engineers-support-global-events-on-facebook/)
