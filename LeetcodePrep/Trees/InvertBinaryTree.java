@@ -1,6 +1,6 @@
-package Trees;
+package LeetcodePrep.Trees;
 
-import Common.TreeNode;
+import LeetcodePrep.Common.TreeNode;
 
 class InvertBinaryTree {
     public TreeNode invertTree(TreeNode root) {

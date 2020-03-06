@@ -1,3 +1,5 @@
+package LeetcodePrep;
+
 /**
  * Given an MxN grid, how many ways can we get from the top left to the bottom
  * right of the grid? NOTE: You can only move down or to the right

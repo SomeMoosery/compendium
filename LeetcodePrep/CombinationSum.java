@@ -1,3 +1,5 @@
+package LeetcodePrep;
+
 import java.util.*;
 
 class CombinationSum {

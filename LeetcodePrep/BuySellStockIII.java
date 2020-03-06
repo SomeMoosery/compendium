@@ -1,3 +1,5 @@
+package LeetcodePrep;
+
 class BuySellStockIII {
     public static int maxProfit(int[] prices) {
         if(prices == null || prices.length < 2) return 0;

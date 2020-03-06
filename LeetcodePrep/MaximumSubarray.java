@@ -1,3 +1,5 @@
+package LeetcodePrep;
+
 class MaximumSubarray {
     public static int maxSubArray(int[] nums) {
         int currMax = nums[0], max = nums[0];

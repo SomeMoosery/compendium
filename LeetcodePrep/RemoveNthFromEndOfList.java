@@ -1,4 +1,6 @@
-import Common.ListNode;
+package LeetcodePrep;
+
+import LeetcodePrep.Common.ListNode;
 
 class RemoveNthFromEnd {
     public static ListNode removeNthFromEnd(ListNode head, int n) {

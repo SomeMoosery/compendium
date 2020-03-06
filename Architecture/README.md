@@ -261,3 +261,4 @@ In this testing phase, simulated traffic is routed to the system, to study how t
 [Educatvie Course](https://www.educative.io/courses/web-application-software-architecture-101)
 [Push vs Pull - Jeff Poole](https://medium.com/@_JeffPoole/thoughts-on-push-vs-pull-architectures-666f1eab20c2)
 [How production engineers support global events on Facebook](https://engineering.fb.com/production-engineering/how-production-engineers-support-global-events-on-facebook/)
+[The 12-Factor App](https://12factor.net/)

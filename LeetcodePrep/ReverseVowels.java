@@ -1,3 +1,5 @@
+package LeetcodePrep;
+
 class ReverseVowels {
     public static String reverseVowels(String s) {
         String vowels = "aAeEiIoOuU";

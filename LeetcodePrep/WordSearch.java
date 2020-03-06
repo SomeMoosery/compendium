@@ -1,3 +1,5 @@
+package LeetcodePrep;
+
 // TODO improve on this solution, it's very slow
 // https://www.youtube.com/watch?v=vYYNp0Jrdv0&t=5s
 

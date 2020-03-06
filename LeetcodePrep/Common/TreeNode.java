@@ -1,4 +1,4 @@
-package Common;
+package LeetcodePrep.Common;
 
 public class TreeNode {
     public int val;

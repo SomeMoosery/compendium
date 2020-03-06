@@ -1,3 +1,5 @@
+package LeetcodePrep;
+
 // https://leetcode.com/problems/jump-game/
 import java.util.*;
 

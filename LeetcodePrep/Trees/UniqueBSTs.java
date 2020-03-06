@@ -1,4 +1,4 @@
-package Trees;
+package LeetcodePrep.Trees;
 
 class UniqueBSTs {
     public static int numTrees(int n) {

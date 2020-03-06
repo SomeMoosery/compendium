@@ -1,4 +1,6 @@
-import Common.ListNode;
+package LeetcodePrep;
+
+import LeetcodePrep.Common.ListNode;
 
 public class ReorderList {
     public static void reorderList(ListNode head) {

@@ -1,4 +1,6 @@
-import Common.ListNode;
+package LeetcodePrep;
+
+import LeetcodePrep.Common.ListNode;
 
 class AddTwoNumbers {
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
