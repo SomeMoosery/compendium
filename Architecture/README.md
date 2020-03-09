@@ -169,6 +169,7 @@ Two types of latency:
 - if your database isn't scaled, you're going to hit bottlenecks even if your servers are scaled beautifully
 - you could be using the wrong type of database (more on this in the Databases section below)
     - if you want transactions and strong consistency, use a relational database
+        - strong consistency requires you to lock all nodes until the replication is complete
     - if you don't need consistency and would rather have horizontal scalability on the fly pick a NoSQL database
 
     Solutions to scaling your database: 
@@ -204,6 +205,162 @@ During scalability testing, different system parameters are taken into account s
 - end-user experience when the system is under heavy load
 
 In this testing phase, simulated traffic is routed to the system, to study how the system behaves and how the application scales under the heavy load
+
+## High Availability
+
+**High availability:** the ability of the system to stay online despite having failures at the infrastructural level in real-time
+
+Systems can fail for a number of reasons (softare crash, hardware failure, human, error, planned downtime, etc...)
+
+### Some Solutions for HA
+
+1. **Fault Tolerance:** the ability of the system to stay up despite taking hits
+- when one (or a few) instances/nodes go down, the system will slow down a bit, but not crash
+    - for example, if image upload for a social app fails, while that may not work, the entire system still will
+    - this is known as **fail soft**
+    - microservices help to alleviate this
+
+2. **Redundancy:** duplicating the components or instances & keeping them on standby to take over in case the active instances go down
+- a fail-safe mechanism
+- a common way to do this is by having some active nodes, which replicate to passive (unused) nodes which only spin up and run if one of the active nodes goes down 
+    - can also have active-active replication where you just have all the nodes always running so that if one goes down, it's not a big deal
+- removes many single points of failure
+- geographically distribute the workload so that even in the case of a natural disaster, software stays up and running
+
+Can use **high-availability clustering** in order to ensure HA
+- **Highly-available cluster:** nodes in a cluster connection by a private network (**heartbeat network**) that continuously monitors the health/status of each node in the cluster
+    - a single state across all nodes in the cluster is achieved with a **shared distributed memory** and **distributed coordination service**
+    - use techniques like **disk mirroring**, **RAID**, redundant network connections, redundant electrical power, etc
+    - run together in the same geographical zone
+
+![Redundancy](images/redundancy.png?raw=true "Redundancy")
+
+## Monolith vs Microservice
+
+**Monolithic application:** a self-container, single-tier application that has its entire application code in a single codebase
+- typically has a UI, business layer, data access layer, and the database
+- simpler than microservice architevture to build, test, deploy, monitor, and manage since all the code is in one place
+- continuous deployment is an issue as one change anywhere in any layers means re-deploying the whole application
+- thorough regression testing required since layers are tightly coupled
+- many single points of failure (if one part of one layer breaks, the whole application could go down)
+- flexibility and scalability become issues as the application grows 
+- can really only use one tech stack on them
+- typically holds state, so not necessarily cloud-ready
+
+**Microservice application:** an application in which different features/tasks are split into separate respective modules/codebases which work in conjunction with each other forming large services as a whole
+- Single Responsibility and Separation of Concerns principles are satisfied here
+- easier cleanup and maintenance, feature development, testing and deployment 
+- inherently designed to scale
+- each part of the application is seen as a product, not a project, with its own codebase, database, etc
+- no inherent single points of failure
+- can leverage heterogeneous technology
+    - every service interacts with each other via an API Gateway, so as long as each tech can interpret REST, you can have one service in Go, another in Ruby, etc...
+    - can even use **polyglot persistence:** using multile database types (SQL and NoSQL) together
+- managing services becomes more difficult
+    - need a node manager like Apache Zookeeper, a distributed tracing service for monitoring the nodes, etc
+- eventual consistency across nodes
+
+![Monolith vs Microservice](images/monolith-vs-microservice.png?raw=true "Monolith vs Microservice")
+
+## Databases
+
+### Types of Data:
+1. Structured Data
+- confirms to a certain structure, typically stored in a database in a normalized fashion
+- no data preparation logic necessary - direct interaction can be done with structured data
+- generally managed by a query language like SQL
+
+2. Unstructured Data
+- no definite structure
+- heterogeneous data - text, image files, video, PDFs, Blobs, Word docs, etc...
+- often encountered in data analytics
+- raw data is taken in and needs to flow through a data preparation stage which separates it based on some business logic and then runs analytics algorithms on it
+
+3. Semi-structured Data
+- stored in data transport formats (XML, JSON)
+
+4. User State
+- where the user clicks, items added to a cart, etc...
+- improves browsing experience for the user
+
+### Types of Databases:
+1. Relational Database
+- saves data containing relationships (one-to-one, one-to-many, many-to-many, etc)
+    - for example, one row in table T1 can correspond to many rows in table T2 (one-to-many), for exmaple of T1 had an ID column, and T2 had a column T1ID that corresponded to T1's ID
+- ensures **data consistency:** saving data in a normalized fashion
+    - a unique entity occurs in only one place/table, in its simplest and atomic form and is not spread throughout the database
+    - helps with updating - we only need to fetch that one entry to update it
+- ensures **ACID Transactions**
+- need to be **sharded** or **replicated** to make them run smoothly in a cluster - this makes it **difficult to scale**
+- **Use Relational Databases When:**
+    1. You value transactions and data consistency (anything to do with numbers, a social network, etc) since it adheres to ACID properties
+    2. Your data is largely relationship-based (you want to group by or compare certain columns regularly)
+
+2. NoSQL Database
+- think of this more as a JSON-based database!
+- built for high frequency reads/writes, just fetch data with its **key** (or the ID), which is O(1)
+    - since we don't have strong consistenty (which requires locking all nodes until the transaction is complete), we can read/write much more quickly than relational. Were it not for this, relational would be just as quick!
+- much easier to scale - often comes with built-in horizontal scaling capabilities
+    - designed to run intelligently on clusters (minimal human intervention needed)
+- do not have strong consistency (it has eventual consistency) or ACID transactions - necessary to sacrifice this to scale more easily
+    - for example, sometimes YouTube could show that a video has 10 views with 15 likes. This just means that when you requested this video, your computer received the up-to-date like count, but a slightly oudated view count
+- requires less thought on initial setup than relational database
+- schemaless
+- since an entity is spread throughout the database, it needs to be updated in all places (not just the one place like for relational databases, where data is normalized)
+- has more specific types of databases (time-series, wide-column, document-oriented, etc) for data analytics
+
+### Specifically, Types of NoSQL Databases
+1. **Document-Oriented Databases:** store data in a document-oriented model in independent docuemnts
+- semi-structured data, stored in a JSON-like format
+- flexible, can change easily over time 
+- horizontal scalability, performant read-writes, caters to CRUD use cases
+- MongoDB, CouchDB, Amazon DocumentDB
+
+2. **Graph Databases:** store data in nodes/vertices and edges in the form of relationships
+- each node is an _entity_
+- each edge is a _relationship between nodes_
+- lower latency than relational database
+    - relationships aren't calculated at query time in the form of joins, they're just stored as edges and you just have to fetch them
+- good for social graph, recommendation apps, fraud detection, etc...
+- Neo4j
+
+3. **Key-Value Store:** use a simple key-value method to store and quickly fetch data with minimum latency
+- good for caching in applications (ensures minimum latency)
+- the key is a unique identifier and the value can be an object or something complex even like a graph
+- **along with caching, this is used for persisting user state or user sessions, managing real-time data, implementing queues, or implementing pub-sub systems**
+- Redis, Memcached
+
+4. **Time Series Database:** optimized for tracking & persisting time-series data
+- good for managing data in real-time continually over a long period of time 
+- used in IoT, industry sensors, self-driving vehicles, stock market financial data, etc
+- lets you study user patterns, analytics
+- InfluxDB, Prometheus
+
+5. **Wide Column Database:** optimized for storing tables with upwards of billions of columns
+- good for big data
+- Cassandra, Scylla DB
+
+### ACID Transactions - Atomicity, Consistency, Integrity, Durability.
+- if a transaction in a system occurs, either it will be executed with perfection without affecting any other processes or transactions, or it won't be executed at all (it will roll back)
+    - the system will have a new state which is durable and consistent 
+    - only has two states (old state, and new state) - no intermediary steps
+
+**CAP Theorem:** An application can either be Consistent and Partition Tolerant, or Available and Partition Tolerant, but not both! 
+
+### Polyglot Persistence Use Case: Social Media
+- to store the relationships amongst people (users and friends, food preference, etc) - relational database (MySQL)
+- for low-latency access to frequently-accessed data - key-value store (Redis, Memcached)
+    - this can also store user sessions
+- wide-column database to run analytics on data generated by users (Cassandra, HBase)
+- payments system - relational database (MySQL)
+- recommendation system - Graph database
+- scalable search feature that persists serach-related ata - document-oriented store (ElasticSearch)
+
+Can also use a **Multi-Model Database** (like Couchbase) to manage multiple persistence technologies in a single service
+
+![Polyglot Persistence](images/polyglot.png?raw=true "Polygloat Persistnce")
+
+![Multi-Model Database](images/multi-model.png?raw=true "Multi-Model Database")
 
 ## Definitions: 
 
@@ -255,6 +412,30 @@ In this testing phase, simulated traffic is routed to the system, to study how t
 **Cloud Elasticity:** the ability for cloud services to be able to "stretch" up/down, out/in cheaply, with ease
 
 **Profiling:** the dynamic analysis of our code, measuring the space and the time complexity of our code and displaying issues like concurrency errors, memory errors & robustness & safety of the program
+
+**High availability:** the ability of the system to stay online despite having failures at the infrastructural level in real-time
+
+**Fault Tolerance:** the ability of the system to stay up despite taking hits
+
+**Fail soft:** when part of a system can fail, but the remaining parts remain operational
+
+**Redundancy:** duplicating the components or instances & keeping them on standby to take over in case the active instances go down
+
+**Polyglot persistence:** using several different persistence technologies (realtional database, NoSQL) to fulfil different persistence requirements in an application
+
+**Data consistency:** saving data in a normalized fashion
+
+**Multi-Model Database:** databases that support multiple data models like Graph, Document-Oriented, Relational etc. as opposed to supporting only one data model
+
+**Document-Oriented Databases:** database that stores data in a document-oriented model in independent docuemnts
+
+**Graph Databases:** database that stores data in nodes/vertices and edges in the form of relationships
+
+**Key-Value Store:** database that uses a simple key-value method to store and quickly fetch data with minimum latency
+
+**Time Series Database:** database optimized for tracking & persisting time-series data
+
+**Wide Column Database:** database optimized for storing tables with upwards of billions of columns
 
 ## Resources:
 [Introducing WebSockets](https://www.html5rocks.com/en/tutorials/websockets/basics/)
