@@ -362,6 +362,43 @@ Can also use a **Multi-Model Database** (like Couchbase) to manage multiple pers
 
 ![Multi-Model Database](images/multi-model.png?raw=true "Multi-Model Database")
 
+## Caching
+Implementing caching in a web application simply means copying frequently accessed data from the database which is disk-based hardware and storing it in RAM hardware.
+- faster access
+- low latency, high throughput 
+- RAM-based hardware is capable of handling more requests than the disk-based hardware, on which the databases run
+
+**Cache invalidation:** When dynamic data (like a TTL) that's stored in the cache expires and is purged and new data is updated in its place
+
+We can use caching everywhere (to store static data on the client, store user sessions, store the results of common database joins if we're using a relational database)
+- **A user session can be stored at any level - OS, network, CDN, database - it doesn't necessarily matter**
+
+**EXAMPLE:**
+
+Instead of writing to the database every time a stock price updates (this would cost a fortune), write to a Memcached (for example) cache and then write to the database once when the trading period ends in a batch operation
+
+### Caching Strategies
+1. Cache Aside
+- data is lazy-loaded in the cache
+- when the user sends a request for particular data, the system first looks for it in the cache. If present, then it is simply returned from it. If not, the data is fetched from the database, the cache is updated and is returned to the user.
+- works best with read-heavy workloads
+
+2. Read-Through
+- the information in this strategy too is lazy-loaded in the cache, only when the user requests it
+- for the first time when information is requested, it results in a cache miss
+- then the backend has to update the cache while returning the response to the user
+
+3. Write-Through
+- each & every piece of information written to the database goes through the cache. Before the data is written to the DB, the cache is updated with it.
+- maintains high consistency between the cache and the database though it adds a little latency during the write operations as data is to be updated in the cache additionally
+- works well for write-heavy workloads
+
+4. Write-Back
+- optimizes costs of write-through
+- data is directly written to the cache instead of the database
+- the cache after some delay as per the business logic writes data to the database
+- if the cache fails before the DB is updated, the data might get lost
+
 ## Definitions: 
 
 **Stored Procedures:** storing business logic code in a database. 
@@ -436,6 +473,8 @@ Can also use a **Multi-Model Database** (like Couchbase) to manage multiple pers
 **Time Series Database:** database optimized for tracking & persisting time-series data
 
 **Wide Column Database:** database optimized for storing tables with upwards of billions of columns
+
+**Cache invalidation:** When dynamic data (like a TTL) that's stored in the cache expires and is purged and new data is updated in its place
 
 ## Resources:
 [Introducing WebSockets](https://www.html5rocks.com/en/tutorials/websockets/basics/)
