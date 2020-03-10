@@ -439,7 +439,11 @@ Can also use a **Multi-Model Database** (like Couchbase) to manage multiple pers
 
 ## Resources:
 [Introducing WebSockets](https://www.html5rocks.com/en/tutorials/websockets/basics/)
+
 [Educatvie Course](https://www.educative.io/courses/web-application-software-architecture-101)
+
 [Push vs Pull - Jeff Poole](https://medium.com/@_JeffPoole/thoughts-on-push-vs-pull-architectures-666f1eab20c2)
+
 [How production engineers support global events on Facebook](https://engineering.fb.com/production-engineering/how-production-engineers-support-global-events-on-facebook/)
+
 [The 12-Factor App](https://12factor.net/)
