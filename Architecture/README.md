@@ -399,6 +399,145 @@ Instead of writing to the database every time a stock price updates (this would 
 - the cache after some delay as per the business logic writes data to the database
 - if the cache fails before the DB is updated, the data might get lost
 
+## Message Queues
+**Message queue:** a queue which routes messages from the source to the destination (or from the sender to the receiver)
+
+Facilitate asynchronous behavior and cross-module communication - key for a service-oriented, microservices architecture
+- provides communication in a heterogenous envrionment
+- provides temporary storage for storing messages until they are processed by the consumer
+- can run batch jobs in the background using message queues
+
+**EXAMPLE:**
+
+Think of a user signing up on a portal. After he signs up, he is immediately allowed to navigate to the home page of the application, but the sign-up process isn’t complete yet. The system has to send a confirmation email to the registered email id of the user. Then the user has to click on the confirmation email for the confirmation of the sign-up event.
+
+But the website cannot keep the user waiting until it sends the email to the user. Either he is allowed to navigate to the home page or he bounces off. So, this task is assigned as an asynchronous background process to a message queue. It sends an email to the user for confirmation while the user continues to browse the website.
+
+The **producer** is the one sending the message 
+
+The **receiver** is the one receiving the message 
+
+Some protocols commonly used are NATS Protocol, AMQP, and STOMP, etc - these are implemented by the queueing services RabbitMQ, NATS, Kafka, etc
+
+You can add priority, acknowledgements to messages, retry failed messages, etc...
+
+### Publish-Subscribe Model
+multiple consumers receive the same message sent from a single or multiple producers
+- think one-to-many
+- like getting notified when a YouTuber you sucscribe to posts a new video
+- **Exchange:** further pushes messages to different queues based on exchange type and which rules are set
+    - typically, types are direct, topic, headers, and fanout
+- **Binding:** the relationship between exchange and queue
+
+![Pub-Sub with Exchange](images/pubsub-exchange.png?raw=true "Pub-Sub with Exchange")
+
+### Point-to-Point Model
+
+Each message has only one consumer
+- think one-to-one
+
+### Essentially, we utilize a push-based approach...
+
+![Push-Based Messaging Queue Example](images/push-based-mq.png?raw=true "Push-Based Messaging Queue Example")
+
+### Another example dealing with Facebook streaming...
+
+Since the data is streamed live, when millions of people request to view one streamer, often the cache is not populated with real-time data before the requests arrive. Now, this would naturally result in a cache-miss & the requests would move on to hit the streaming server.
+
+To avert this, Facebook queues all the user requests, requesting for the same data. It fetches the data from the streaming server, populates the cache & then serves the queued requests from the cache.
+
+## Stream Processing
+In an increasingly-automated world, a lot of business processes, machines, etc are becoming somewhat "self-aware" in that they all create data, send it to backend servers, this data is ingested, meaningful insights are gathered from it, and decisions are sent back to these processes, machines, etc.
+
+### Data Ingestion
+**Data ingestion:** the process of collecting data streaming in from several different sources and making it ready to be processed by the system
+
+Once data is ingested, it is routed to different components through **data pipelines** 
+
+Once data is passed to the right components, algorithms are run on it and the data is eventually archived 
+
+![Date Science Pipeline](images/data-science-pipeline.png?raw=true "Date Science Pipeline")
+
+1. **Data Standardization** - since data is coming in from multiple different endpoints (social media, IoT, etc), we need a way to standardize the data in order to pass homogeneous information through the pipeline
+2. **Data Processing** - classifying data into certain flows (based on business intent) which are then routed to their appropriate components
+3. **Data Analysis:** machine learning, NLP, etc...
+4. **Data Visualization:** Present data in a visually digestible way to communicate with stakeholders
+5. **Data Storage and Security:** persisting and keeping this data secure is crucial
+
+Can ingest data in two ways:
+1. Real-Time (health information, financial data)
+2. Batch (time-insensitive information)
+
+Challenges with data ingestion:
+- it's slow
+    - transforming data, verifying/authorizing data, etc is a very costly process
+- takes lots of computing resources
+    - ETL isn't that effective anymore
+- moving around data is always risky security-wise
+
+Some Use Cases:
+- moving data into Hadoop or Spark for processing
+- streaming data from databases to ElasticSearch Server
+    - ElasticSearch is an open-source framework for implementing search in web applications
+- log processesing with something like the ELK stack or Splunk
+- real-time events
+
+### Data Pipelines
+**Data pipelines:** the core component of a data processing infrastructure. They facilitate the efficient flow of data from one point to another & also enable the developers to apply filters on the data streaming-in in real-time
+- removes bottlenecks and redundancies
+- facillitates parallel processing of data
+- prevents data from being corrupted
+
+Traditionally, **ETL Systems** managed the movement of data, but they can't handle real-time processing very well
+
+**ETL systems:** extract, transformat, load
+- extract means fetching data from single or multiple data sources
+- transform means transforming the extracted heterogeneous data into a standardized format based on the rules set by the business
+- load means moving the transformed data to a data warehouse or another data storage location for further processing of data
+
+This is the same as ingestion with data pipelines, but it's only batch processing
+
+### Distributed Data Processing
+**Distributed data processing:** diverging large amounts of data to several different nodes, running in a cluster, for parallel processing
+- Hadoop, Spark
+
+![Distributed Data Processing](images/distributed-data-processing.png?raw=true "Distributed Data Processing")
+
+### Data Processing Architectures
+
+1. **Lambda Architecture**
+- leverages both the batch (**batch layer**) & the real-time streaming (**spedd layer**) data processing approaches to tackle the latency issues arising out of the batch processing approach
+- joins results from batch & real-time streaming before presenting to the end user (**serving layer**)
+- the analytics are only run over a small portion of real-time streaming data, so the results aren't very accurate when compared to batch
+
+![Lambda Architecture](images/lambda-architecture.png?raw=true "Lambda Architecture")
+
+2. **Kappa Architecture**
+- only two layers: **speed layer** and **serving layer**, as both batch and real-time data go through the same streaming pipeline
+
+Lambda is preferred when the batch data will be very different from the real-time data, whereas kappa is preferred when these two sources produce relatively similar data 
+
+## Event-Driven Architecture
+
+**Blocking** is analogous with synchronous - if an event is blocking, execution of the rest of the program will not complete until the call that went down receives an event back up 
+- So, **Non-Blocking** is asynchronous
+- more fit for running CPU-intensive tasks (ML algorithms, handling data in enterprise systems, etc), not IO-intensive tasks
+
+Events are anything from a tweet to an HTTP request to a button click, etc...
+
+Non-blocking architecture is known as **Reactive** or **Event-Driven** architecture
+- Node.js is non-blocking, for example
+- can handle a large number of concurrent connections with minimal resource consumption
+- **the code is written to react to events, not execute through each line sequentially** 
+
+This is all very similar to a message broker
+
+![Event Broker](images/event-broker.png?raw=true "Event Broker")
+
+## Hexagonal Architecture
+![Hexagonal Architecture](images/hexagonal.png?raw=true "Hexagonal Architecture")
+
+
 ## Definitions: 
 
 **Stored Procedures:** storing business logic code in a database. 
@@ -476,6 +615,22 @@ Instead of writing to the database every time a stock price updates (this would 
 
 **Cache invalidation:** When dynamic data (like a TTL) that's stored in the cache expires and is purged and new data is updated in its place
 
+**Message queue:** a queue which routes messages from the source to the destination (or from the sender to the receiver)
+
+**Publish-Subscribe model:** messaging queue model where multiple consumers receive the same message sent from a single or multiple producers.
+
+**Publish-Subscribe model:** messaging queue model where multiple consumers receive the same message sent from a single or multiple producers.
+
+**Point-to-point model:** messaging queue model where the message from the producer is consumed by only one consumer
+
+**Data ingestion:** the process of collecting data streaming in from several different sources and making it ready to be processed by the system
+
+**Data pipelines:** the core component of a data processing infrastructure. They facilitate the efficient flow of data from one point to another & also enable the developers to apply filters on the data streaming-in in real-time
+
+**Distributed data processing:** diverging large amounts of data to several different nodes, running in a cluster, for parallel processing
+
+**Callback function:** the function that runs after a call to somewhere else has completed. For example, when the library function `onClick()` is called (so when the button is clicked), your callback would be the implementation of `onClick()` in your code
+
 ## Resources:
 [Introducing WebSockets](https://www.html5rocks.com/en/tutorials/websockets/basics/)
 
@@ -485,4 +640,16 @@ Instead of writing to the database every time a stock price updates (this would 
 
 [How production engineers support global events on Facebook](https://engineering.fb.com/production-engineering/how-production-engineers-support-global-events-on-facebook/)
 
+[How production engineers handle Facebook live streaming](https://engineering.fb.com/ios/under-the-hood-broadcasting-live-video-to-millions/)
+
 [The 12-Factor App](https://12factor.net/)
+
+[Netflix's Real-Time Streaming](https://netflixtechblog.com/keystone-real-time-stream-processing-platform-a3ee651812a)
+
+[Netflix Migrating Batch ETL to Stream Processing](https://www.infoq.com/articles/netflix-migrating-stream-processing/)
+
+[Node.js event loop](https://nodejs.org/fa/docs/guides/event-loop-timers-and-nexttick/)
+
+[More reading on Node.js event loop](https://medium.com/the-node-js-collection/what-you-should-know-to-really-understand-the-node-js-event-loop-and-its-metrics-c4907b19da4c)
+
+[Event Loop vs Concurrency (Node vs Golang)](https://medium.com/@tigranbs/concurrency-vs-event-loop-vs-event-loop-concurrency-eb542ad4067b)
