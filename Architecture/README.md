@@ -535,6 +535,16 @@ This is all very similar to a message broker
 ![Event Broker](images/event-broker.png?raw=true "Event Broker")
 
 ## Hexagonal Architecture
+Different components of the application should be independent, loosely coupled & easy to test
+
+**A hexagonal architecture would be the makeup of each service within a microservices architecture** 
+
+1. Ports - an interface to communicate down through to the business logic
+2. Adapters - the implementation of the interface
+3. Domain - the business logic
+
+Very similar to a layered architecture, but with this there will only ever be three layers, whereas the layered architecture can get very complex the larger it grows
+
 ![Hexagonal Architecture](images/hexagonal.png?raw=true "Hexagonal Architecture")
 
 
@@ -653,3 +663,5 @@ This is all very similar to a message broker
 [More reading on Node.js event loop](https://medium.com/the-node-js-collection/what-you-should-know-to-really-understand-the-node-js-event-loop-and-its-metrics-c4907b19da4c)
 
 [Event Loop vs Concurrency (Node vs Golang)](https://medium.com/@tigranbs/concurrency-vs-event-loop-vs-event-loop-concurrency-eb542ad4067b)
+
+[Design a Ticket Buying App](https://www.educative.io/courses/web-application-software-architecture-101/gkElD1ro2L6)
