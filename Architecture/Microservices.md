@@ -7,3 +7,6 @@ Microservices are often integrated using REST over HTTP.
 
 But, microservices can also be integrated using mechanisms like lightweight messaging protocols (RabbitMQ), publish-subscribe models (NATS), or alternative transports like Protobuf, Thrift 
 
+## Resources
+
+[Microservices Blog](https://microservices.io/index.html)
