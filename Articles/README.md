@@ -27,6 +27,8 @@
 
 [Netflix Engineering](https://netflixtechblog.com/)
 
+[DBWeekly](https://dbweekly.com/)
+
 
 ## Books
 [On War - General Carl von Calusewitz](https://www.gutenberg.org/files/1946/1946-h/1946-h.htm#pref01)
