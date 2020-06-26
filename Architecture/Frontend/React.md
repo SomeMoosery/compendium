@@ -1,5 +1,9 @@
 # React
 
+**Reactivity** is all about data flow, tracking values through your application
+- When a value changes, your application 
+- The essence of functional reactive programming is to specify the dynamic behavior of a value completely at the time of declaration
+
 ![Example React Architecture](images/react-architecture-1.png?raw=true "Example React Architecture")
 
 ![Example React Architecture](images/react-architecture-2.png?raw=true "Example React Architecture")
@@ -20,3 +24,16 @@ In React, for every DOM object, there is a correspodning **virtual DOM object:**
 3. Once React knows exactly which objects changed, it updates the real DOM (so, in this case, only the checked-off box would be updated)
 
 ![Virtual DOM Flow](images/virtual-dom.png?raw=true "Virtual DOM Flow")
+
+## Hooks
+
+
+
+### Problems
+
+- Every time there is any state change at all, you need to redeclare functions that close over local state
+- The virtual DOM is inefficient
+    - You have to look through each element on the page to see what's changed. This is an improvement over reloading the entire page, but is still extremely inefficient 
+    - virtual DOM is really just not fast
+- React doesn't have any knowledge of the values flowing through your app, it treats it like a black box
+- Things like `useCallback()` are an **abstraction leak** that let you tell the computer that it doesn't need to worry about this subtree within your application (you're doing the thinking for the computer)

@@ -1,5 +1,10 @@
 # Web Application & Software Architecture 101:
 
+## Big Ideas
+- You generally want to keep nondeterminism (I/O, mutation, etc) at the edges
+- You want low coupling, high cohesion: components should depend on each other as little as possible, and that component does one thing and does it well
+- Common Closure Principle: code that changes together, lives together
+
 ## Tiers of Applications:
 1. 1-Tier: All the code is on one machine (client, database, everything) - this is what like video games, MS Excel, etc are
     - No network latency
@@ -640,6 +645,8 @@ Very similar to a layered architecture, but with this there will only ever be th
 **Distributed data processing:** diverging large amounts of data to several different nodes, running in a cluster, for parallel processing
 
 **Callback function:** the function that runs after a call to somewhere else has completed. For example, when the library function `onClick()` is called (so when the button is clicked), your callback would be the implementation of `onClick()` in your code
+
+**bounded context:** another word for a subdomain. One piece of functionality within an architecture. Should have low coupling, high cohesion
 
 ## Resources:
 [Introducing WebSockets](https://www.html5rocks.com/en/tutorials/websockets/basics/)

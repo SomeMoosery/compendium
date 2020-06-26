@@ -4,6 +4,8 @@
 
 [Project Lightspeed: Rewriting the Messenger codebase for a faster, smaller, and simpler messaging app](https://engineering.fb.com/data-infrastructure/messenger/)
 
+[The Entity Service Antipattern](https://www.michaelnygard.com/blog/2017/12/the-entity-service-antipattern/)
+
 ## Good Blogs:
 [Facebook Engineering Blog](https://engineering.fb.com/)
 
