@@ -14,7 +14,7 @@
 - just as functions are _things_ at the coding level, workflows are _things_ at the architectural level: **basic building blocks**
 2. Composition is the primary way to build system
 - two functions can be _composed_ by connecting the output of one to the input of another. The result is another function that can be used as a starting point for more composition
-![Functional vs Object-Oriented Workflow](../images/function-vs-oo-workflow.png?raw=true "Functional vs Object-Oriented Workflow")
+![Functional vs Object-Oriented Workflow](./images/function-vs-oo-workflow.png?raw=true "Functional vs Object-Oriented Workflow")
 - functional system tend to look like pipelines with inputs and outputs, rather than message-oriented request/response model
 - combine specific components needed for a particular business workflow
 - new features are defined independently, rather than grouped into a "databases layer" or a "services layer"
@@ -68,6 +68,10 @@ The output of a workflow is also an event: a notification that tells any downstr
 Workflows can be deployed in a number of ways - microservices, independent serverless functions, components inside a modular monolith, etc...
 
 Model-View-Update is a good example of this pattern
+
+![Functional Architecture](./images/functional-architecture.png?raw=true "Functional Architecture")
+![Layered Architecture](./images/layered-architecture.png?raw=true "Layered Architecture")
+
 
 ### Sources
 [Stripe Increment](https://increment.com/software-architecture/primer-on-functional-architecture/https://increment.com/software-architecture/primer-on-functional-architecture/)
