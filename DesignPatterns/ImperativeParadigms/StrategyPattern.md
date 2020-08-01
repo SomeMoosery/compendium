@@ -44,6 +44,18 @@ public class TextEditor {
 }
 ```
 
+```golang
+type TextEditor struct {
+    SpellChecker Spellchecker
+}
+
+func NewTextEditor() {
+    t := new(TextEditor)
+    t.SpellChecker = new(SpellChecker(...))
+    return t
+}
+```
+
 Let's take this back to our Duck example:
 ```java
 public class Duck {
@@ -56,6 +68,21 @@ public class Duck {
     }
 }
 ```
+
+```golang
+type Duck struct {
+    var flyStrategy IFlyStrategy
+    var quackStrategy IQuackStrategy
+}
+
+func NewDuck() Duck {
+    d := new(Duck)
+    flyStrategy = new(IFlyStrategy(...))
+    quackStrategy = new(IQuackStrategy(...))
+    return d
+}
+```
+
 Here, you're hardcoding in which type of flying and quacking strategy your duck has. Therefore, if you want to have multiple types of Ducks, you need to have multiple classes of `Mountain Duck`, `Mallard`, etc...
 
 With dependency injection, this looks like:
@@ -73,6 +100,50 @@ public class Duck {
         this.flyStrategy.fly();
     }
 }
+```
+
+```golang
+type Duck struct {
+    FlyStrategy IFlyStrategy
+    QuackStrategy IQuackStrategy
+}
+
+func NewDuck(flyStrategy IFlyStrategy, quackStrategy IQuackStrategy) {
+    d := new(Duck)
+    d.FlyStrategy = flyStrategy
+    d.QuackStrategy = quackStrategy
+    return d
+}
+
+func (d *Duck) fly() {
+    return d.FlyStrategy.Fly()
+}
+```
+
+The idea is that wherever in your codebase you're dealing with Ducks, things becomes very interchangeable and modular. Now, you can have something like:
+
+```golang
+...
+flyStrategy := new(SimpleFlyStrategy) // SimpleFlyStrategy implements IFlyStrategy by implementing Fly()
+quackStrategy := new(SimpleQuackStrategy) // SimpleQuackStrategy implements IQuackStrategy
+
+duck := NewDuck(flyStrategy, quackStrategy) // This is totally interchangeable, and Duck becomes decoupled from its strategies
+```
+
+We're injection the dependencies. Java is more longwinded than this, where you should (in principle) have a generic `DatabaseDAO.java` interface, and then whenever you instantiate that, you inject either `PostgresDbDao.java` or `DyanmoDbDao.java` class - we're injecting specific things into a more generic interface in the space where the interface is declared, so that in that space we have no dependence on whatever is implemented. `PostgresDbDao implements DatabaseDAO` as a whole long separate class in Java is just a longer way of doing having a class `SimpleFlyStrategy.go` that implements `Fly()` - it's implementing `IFlyStrategy.go` interface but without explicitly saying so, which is just a language thing.
+
+This is how we separate business logic from ports/adapters in a hex (or ports/adapters architecture). In the business logic, we just run something like 
+```golang
+type repository interface {
+	Add(i int)
+	Subtract(i int)
+}
+
+db := new(postgres.PostgresDbDao)
+
+// someservice.NewService(r repository) takes in an interface r that must implement Add and Subtract
+// so as long as postgres.PostgresDbDao implements Add and Subtract, we can inject it and continue our business logic as normal
+someService := someservice.NewService(db)
 ```
 
 This is **constructor-based** dependency injection, and here the `Duck` container invokes a class constructor with a number of arguments, each representing a depdency on the other class. This can similarly be done with **setter-based dependency injection**, which is accomplished by the container calling a setter method.
