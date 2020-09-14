@@ -101,7 +101,7 @@ Wrapping around at the end of the alphabet is done nicely with modulo 26!
 
 **Decryption:** $d_k$(y) = y + k mod 26
 
-**EXAMPLE:** ATTACK = $x_1$,$x_2$,...$x_6$ = 0,19,19,0,2,10. This becomes 17,10,10,17,19,1 or rkkrtb
+**EXAMPLE:** k = 17. ATTACK = $x_1$,$x_2$,...$x_6$ = 0,19,19,0,2,10. This becomes 17,10,10,17,19,1 or rkkrtb
 
 Two attacks possible:
 1. Frequency analysis 

@@ -71,14 +71,14 @@ public class Duck {
 
 ```golang
 type Duck struct {
-    var flyStrategy IFlyStrategy
-    var quackStrategy IQuackStrategy
+    var FlyStrategy IFlyStrategy
+    var QuackStrategy IQuackStrategy
 }
 
 func NewDuck() Duck {
     d := new(Duck)
-    flyStrategy = new(IFlyStrategy(...))
-    quackStrategy = new(IQuackStrategy(...))
+    d.FlyStrategy = new(IFlyStrategy(...))
+    d.QuackStrategy = new(IQuackStrategy(...))
     return d
 }
 ```
