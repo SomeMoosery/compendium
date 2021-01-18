@@ -71,6 +71,14 @@ You can add `payable` functions, but you need to also add a way to withdraw the 
 
 `uintN`s are always 2 ^ N. So `uint16` is 2 ^ 16 = max 65536, `uint8` = 256, etc... think about this when creating variables. You wouldn't want a daily ticker to be a `uint8` because it would overflow after only 256 days.
 
+The `approve(address _approved, uint256 _tokenId)` function allows not just the owner, but whoever the owner approves, to call `transferFrom(address _from, address _to, uint256 _tokenId)`.
+
+Using `library` instead of `contract` makes the library `use`able, meaning that you can use, for example, `using SafeMath for uint;` and then call `uint test = 2` and `test = test.mul(3)` and it'll work.
+
+We should always use [OpenZeppelin SafeMath](https://docs.openzeppelin.com/contracts/2.x/api/math#SafeMath) instead of built-in `uint` functionality (so instead of `++` we should always use `.add(1)`)
+
+Comments should follow [NatSpec comment format](https://docs.soliditylang.org/en/v0.5.10/natspec-format.html)
+
 ## Global variables / functions / modifiers
 * `msg.sender`: the address of the person (or smart contract) which called the current function
 * `emit` emits an `event` to the frontend
@@ -87,6 +95,9 @@ You can add `payable` functions, but you need to also add a way to withdraw the 
 - You can only use struct pointers in private/internal functions
 
 **Memory:** variables that are temporary, erased between external function calls to your contract (like RAM). These variables are declared within functions.
+
+**Overflow:** a typical byte overflow, for example when you have a `uint8 var = 255` and run `var++`, you get `0`, not `256`. 
+- use [OpenZeppelin SafeMath](https://docs.openzeppelin.com/contracts/2.x/api/math#SafeMath) library to avoid this.
 
 **State Variables:** variables permanently stored in contract storage i.e. written to the Ethereum blockchain. These variables must be declared outside of functions. **This is like a database write** (i.e. they're expensive)
 - Creating a dynamic array of structs can be useful for storing data in your contract, **kind of like an on-chain database**
