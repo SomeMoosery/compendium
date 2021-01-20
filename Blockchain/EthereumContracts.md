@@ -79,6 +79,8 @@ We should always use [OpenZeppelin SafeMath](https://docs.openzeppelin.com/contr
 
 Comments should follow [NatSpec comment format](https://docs.soliditylang.org/en/v0.5.10/natspec-format.html)
 
+`call()` in Web3.js is used for `view` and `pure` functions, `send()` is used for any other function (equivalent to GET vs POST)
+
 ## Global variables / functions / modifiers
 * `msg.sender`: the address of the person (or smart contract) which called the current function
 * `emit` emits an `event` to the frontend
@@ -90,6 +92,8 @@ Comments should follow [NatSpec comment format](https://docs.soliditylang.org/en
 
 ## Definitions:
 **Contract:** the fundamental building block of Ethereum applications — all variables and functions belong to a contract, and this will be the starting point of all your projects
+
+**ABI:** Application Binary Interface - a representation of your contracts' methods in JSON format that tells Web3.js how to format function calls in a way your contract will understand 
 
 **Storage (pointer):** variables stored permanently on the blockchain (like a hard disk, database). _State variables are `storage` by default_!!
 - You can only use struct pointers in private/internal functions
