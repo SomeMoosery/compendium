@@ -211,3 +211,26 @@ contract HelloWorld {
     }
 }
 ```
+
+# Setting up a project with Truffle
+1. Install Truffle using `npm install truffle -g`
+2. Run `truffle init`. This will initialize a new project with the file structure:
+```
+|-- contracts
+|--|-- Migrations.sol
+|-- migrations
+|--|-- 1_initial_migration.js
+|--test
+truffle-config.js
+truffle.js
+```
+* `contracts/`: where Truffle expects to find all smart contracts. To keep code organized, you should create nested folders (`contracts/tokens`).
+* `migrations/`: a migrations is a JS file that tells Truffle how to deploy a smart contract
+* `test/`: where unit tests (JS or Solidity) lives
+* `truffle.js`: stores network settings for deployment
+* `truffle-config.js`: ONLY FOR WINDOWS stores network settings for deployment 
+* you'll probably want to run `npm install truffle truffle-hdwallet-provider` (which handles transactions signing)
+3. You'll either need to set up your own Ethereum node or wallet, or use something like [Infura](https://infura.io/) to run
+4. `truffle compile` will run the Solidity compiler (and throw any relevant warnings), compiling all code into bytecode than can be understood but the `EVM` (Ethereum Virtual Machine)
+5. Compiled artifacts are placed in the `./build/contracts` directory
+* build artifacts are comprised of the bytecode versions of the smart contracts, ABIs, and some internal Truffle data
