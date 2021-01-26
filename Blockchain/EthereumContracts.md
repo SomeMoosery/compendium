@@ -234,3 +234,7 @@ truffle.js
 4. `truffle compile` will run the Solidity compiler (and throw any relevant warnings), compiling all code into bytecode than can be understood but the `EVM` (Ethereum Virtual Machine)
 5. Compiled artifacts are placed in the `./build/contracts` directory
 * build artifacts are comprised of the bytecode versions of the smart contracts, ABIs, and some internal Truffle data
+
+## Migrations:
+* migrations actually chang blockchain state
+* migrations should be ordered in order of execution 
