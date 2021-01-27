@@ -89,6 +89,7 @@ Comments should follow [NatSpec comment format](https://docs.soliditylang.org/en
 * `seconds`, `minutes`, `hours`, `days`, `weeks`, `years` all convert to a `uint` number of seconds of that length of time
 * `payable` means that you can send ETH along with the request
 * `ether` is a number amount of either (i.e., check `msg.value == 0.001 ether`)
+* `indexed` is for logged `event` - allows you to search for these events using the indexed parameters as filters.
 
 ## Definitions:
 **Contract:** the fundamental building block of Ethereum applications — all variables and functions belong to a contract, and this will be the starting point of all your projects
